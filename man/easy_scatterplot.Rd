@@ -7,6 +7,8 @@
 easy_scatterplot(dataset, x, y, color = NULL, ...)
 }
 \arguments{
+\item{dataset}{The data frame providing the data for the plot.}
+
 \item{x}{The variable name to be used for the x-axis (the independent variable).}
 
 \item{y}{The variable name to be used for the y-axis (the dependent variable).}
@@ -14,8 +16,6 @@ easy_scatterplot(dataset, x, y, color = NULL, ...)
 \item{color}{A categorical variable to color the points.}
 
 \item{...}{Additional ggplot2 arguments passed to \code{geom_point()}, such as \code{size}, \code{alpha}, etc.}
-
-\item{darataset}{The data frame providing the data for the plot.}
 }
 \value{
 A ggplot2 scatterplot object.
