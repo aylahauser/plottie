@@ -110,21 +110,25 @@ easy_scatterplot <- function(dataset, x, y, color = NULL, ...) {
 
 #' @title Quickly Create a Barplot
 #' @description
-#' Given one categorical variable from a data frame, the `easy_barplot()` function provides a simpler
-#' way to create barplots without manually writing full ggplot2 code.
+#' Given one categorical variable and one numeric variable from a data frame, the `easy_barplot()` function
+#' provides a simpler way to create barplots without manually writing full ggplot2 code.
 #' Users can customize the setting of the barplot by adding additional arguments.
 #' @param dataset The data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis.
+#' @param y The variable name to be used for the y-axis.
 #' @param fill A categorical variable to fill the bars.
 #' @param ... Additional arguments passed to `geom_bar()`, such as `size`, `alpha`, etc.
 #' @importFrom ggplot2 aes_string geom_bar theme_minimal
 #' @return A ggplot2 barplot object.
 #' @examples
-#' easy_barplot(mtcars, x = "cyl")
+#' easy_barplot(mtcars, x = "cyl", y = "wt", stat = "identity")
 #' @export
-easy_barplot <- function(dataset, x, fill = NULL, ...) {
+easy_barplot <- function(dataset, x, y, fill = NULL, ...) {
   if (!x %in% names(dataset)) {
     stop("The variable x is not in the dataset.")
+  }
+  if (!y %in% names(dataset)) {
+    stop("The variable y is not in the dataset.")
   }
   if (!is.null(fill) && !(fill %in% names(dataset))) {
     stop("The fill variable is not in the dataset.")
@@ -136,7 +140,7 @@ easy_barplot <- function(dataset, x, fill = NULL, ...) {
 
     barplot <- ggplot2::ggplot(
     data = dataset,
-    ggplot2::aes_string(x = x, fill = fill)
+    ggplot2::aes_string(x = x, y = y, fill = fill)
   ) +
     ggplot2::geom_bar(...) +
     ggplot2::theme_minimal()

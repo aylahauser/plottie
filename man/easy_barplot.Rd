@@ -4,12 +4,14 @@
 \alias{easy_barplot}
 \title{Quickly Create a Barplot}
 \usage{
-easy_barplot(dataset, x, fill = NULL, ...)
+easy_barplot(dataset, x, y, fill = NULL, ...)
 }
 \arguments{
 \item{dataset}{The data frame providing the data for the plot.}
 
 \item{x}{The variable name to be used for the x-axis.}
+
+\item{y}{The variable name to be used for the y-axis.}
 
 \item{fill}{A categorical variable to fill the bars.}
 
@@ -19,10 +21,10 @@ easy_barplot(dataset, x, fill = NULL, ...)
 A ggplot2 barplot object.
 }
 \description{
-Given one categorical variable from a data frame, the \code{easy_barplot()} function provides a simpler
-way to create barplots without manually writing full ggplot2 code.
+Given one categorical variable and one numeric variable from a data frame, the \code{easy_barplot()} function
+provides a simpler way to create barplots without manually writing full ggplot2 code.
 Users can customize the setting of the barplot by adding additional arguments.
 }
 \examples{
-easy_barplot(mtcars, x = "cyl")
+easy_barplot(mtcars, x = "cyl", y = "wt", stat = "identity")
 }
