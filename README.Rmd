@@ -47,7 +47,7 @@ Given a categorical variable, the `easy_barplot()` function creates a barplot in
 Users can customize the fill color and pass additional arguments like width, alpha, etc.
 
 ```{r}
-easy_barplot(mtcars, x = "cyl", fill = "gear")
+easy_barplot(mtcars, x = "cyl", y = "wt", stat = "identity", fill = "gear")
 ```
 
 Given a numeric variable, the `easy_histogram()` function creates a histogram in the plot window using ggplot2.
@@ -61,14 +61,14 @@ Given one categorical and one numeric variable, the `easy_boxplot()` function cr
 Users can customize a color and add extra ggplot2 arguments like width, alpha, etc.
 
 ```{r}
-easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "blue")
+easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 ```
 
 Given two numeric variables, the `easy_lineplot()` function creates a line plot in the plot window using ggplot2.
 Users can customize the line color and pass additional arguments such as size, linetype, etc.
 
 ```{r}
-easy_lineplot(mtcars, x = "hp", y = "mpg", color = "red")
+easy_lineplot(mtcars, x = "hp", y = "mpg", color = "gear")
 ```
 
 Given one or two variable names, the `plot_helper()` function suggests an appropriate plot type based on variable types.

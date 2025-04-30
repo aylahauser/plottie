@@ -11,7 +11,7 @@
 #' @importFrom ggplot2 ggplot geom_boxplot theme_minimal aes theme element_text
 #' @return A ggplot2 boxplot displayed in Rstudio plot window.
 #' @examples
-#' easy_boxplot(mpg, x = "model", y = "hwy", color = "blue")
+#' easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 #' @export
 easy_boxplot <- function(dataset, x, y, color, ...){
   if (!x %in% names(dataset)) {
@@ -55,7 +55,7 @@ easy_boxplot <- function(dataset, x, y, color, ...){
 #' @return A ggplot2 lineplot displayed in Rstudio plot window.
 #' @importFrom ggplot2 ggplot geom_line theme_minimal aes theme element_text
 #' @examples
-#' easy_lineplot(mpg, x = "cty", y = "hwy", color = "blue")
+#' easy_lineplot(mtcars, x = "hp", y = "mpg", color = "gear")
 #' @export
 easy_lineplot <- function(dataset, x, y, color, ...){
 

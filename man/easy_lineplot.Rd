@@ -25,5 +25,5 @@ Given two numeric variables, the \code{easy_lineplot()} function provides a simp
 Users can customize the setting of the lineplot by adding additional arguments.
 }
 \examples{
-easy_lineplot(mpg, x = "cty", y = "hwy", color = "blue")
+easy_lineplot(mtcars, x = "hp", y = "mpg", color = "gear")
 }

@@ -25,5 +25,5 @@ Given one discrete variable and one numeric variable, the \code{easy_boxplot()} 
 Users can customize the setting of the boxplot by adding additional arguments.
 }
 \examples{
-easy_boxplot(mpg, x = "model", y = "hwy", color = "blue")
+easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 }

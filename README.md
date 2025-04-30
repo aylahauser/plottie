@@ -42,7 +42,7 @@ barplot in the plot window using ggplot2. Users can customize the fill
 color and pass additional arguments like width, alpha, etc.
 
 ``` r
-easy_barplot(mtcars, x = "cyl", fill = "gear")
+easy_barplot(mtcars, x = "cyl", y = "wt", stat = "identity", fill = "gear")
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
@@ -64,7 +64,7 @@ customize a color and add extra ggplot2 arguments like width, alpha,
 etc.
 
 ``` r
-easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "blue")
+easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
@@ -74,7 +74,7 @@ line plot in the plot window using ggplot2. Users can customize the line
 color and pass additional arguments such as size, linetype, etc.
 
 ``` r
-easy_lineplot(mtcars, x = "hp", y = "mpg", color = "red")
+easy_lineplot(mtcars, x = "hp", y = "mpg", color = "gear")
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
