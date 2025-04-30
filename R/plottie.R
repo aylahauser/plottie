@@ -21,8 +21,9 @@ easy_boxplot <- function(dataset, x, y, color, ...){
     stop("The variable y is not in the dataset.")
   }
 
-  if (!is.character(dataset[[x]]) | !is.logical(dataset[[x]]) & !is.numeric(dataset[[y]])) {
-    stop("x must be a character or logical and y must be numeric for a boxplot.")
+  if (!(is.character(dataset[[x]]) || is.factor(dataset[[x]]) || is.logical(dataset[[x]])) ||
+      !is.numeric(dataset[[y]])) {
+    stop("x must be a character, factor, or logical, and y must be numeric for a boxplot.")
   }
 
   boxplot <- ggplot2::ggplot(data = dataset,
@@ -206,4 +207,7 @@ plot_helper <- function(dataset, x, y) {
   if ((is.logical(type_x) || is.character(type_x)) && is.numeric(type_y)) {
     return("Since the independent variable is discrete and the dependent variable is continuous, the best plots to create would either be a boxplot or a bar graph. See help pages for easy_boxplot() and easy_barplot() for more information.")
   }
+
+  return("No suitable plot suggestion found for the given variable types.")
 }
+
