@@ -1,0 +1,41 @@
+---
+title: "Using the plottie package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the plottie package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(plottie)
+```
+
+## Easy Plotting with plottie
+
+The main function of the plottie package is to make plotting using ggplot2 in R simpler and more accessible. Let's see how we can accomplish this. First, load the `plottie` package.
+
+Then, use the `plot_helper` function to help you decide what plot to build based on your data set and the variables you want to use within it. We will be using the built in R dataset called `mpg` which analyzes fuel economy data from 1999 to 2008 for 38 popular models of cars. Let's say we want to analyze the relationship between the model of the car and the number of cylinders in the car.  
+
+```{r}
+plot_helper(data = mpg, x = "model", y = "cyl")
+```
+
+Now, that the plot helper has determined what types of graphs we can use to plot our data most effectively, lets choose one of the coordinating graph functions built into the `plottie` package. We will be using the `easy_boxplot()` function, but `easy_barplot()` would work for this type of data as well. The `easy_boxplot()` function will take our the arguments used in the `plot_helper` function and an additional variable to color the plot by.
+
+```{r}
+easy_boxplot(data = mpg, x = "model", y = "cyl", color = "drv")
+```
+
+## Plottie Data
+The `plottie` package also come with a built-in data set 
+
+
+
