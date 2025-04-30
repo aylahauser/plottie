@@ -9,7 +9,7 @@
 #' @param color The color provided that aligns with R's built in colors that will be the color of the plot.
 #' @param ... Additional ggplot2 arguments passed to `geom_point()`, such as `size`, `alpha`, etc.
 #' @importFrom ggplot2 ggplot geom_boxplot theme_minimal aes
-#' @returns A ggplot2 boxplot displayed in Rstudio plot window.
+#' @return A ggplot2 boxplot displayed in Rstudio plot window.
 #' @examples
 #' easy_boxplot(mpg, x = "model", y = "hwy", color = "blue")
 #' @export
@@ -21,8 +21,9 @@ easy_boxplot <- function(dataset, x, y, color, ...){
     stop("The variable y is not in the dataset.")
   }
 
-  if (!is.character(dataset[[x]]) | !is.logical(dataset[[x]]) & !is.numeric(dataset[[y]])) {
-    stop("x must be a character or logical and y must be numeric for a boxplot.")
+  if (!(is.character(dataset[[x]]) || is.factor(dataset[[x]]) || is.logical(dataset[[x]])) ||
+      !is.numeric(dataset[[y]])) {
+    stop("x must be a character, factor, or logical, and y must be numeric for a boxplot.")
   }
 
   boxplot <- ggplot2::ggplot(data = dataset,
@@ -42,7 +43,7 @@ easy_boxplot <- function(dataset, x, y, color, ...){
 #' @param y The variable name to be used for the y-axis (the dependent variable).
 #' @param color The color provided that aligns with R's built in colors that will be the color of the plot.
 #' @param ... Additional ggplot2 arguments passed to `geom_point()`, such as `size`, `alpha`, etc.
-#' @returns A ggplot2 lineplot displayed in Rstudio plot window.
+#' @return A ggplot2 lineplot displayed in Rstudio plot window.
 #' @importFrom ggplot2 ggplot geom_line theme_minimal aes
 #' @examples
 #' easy_lineplot(mpg, x = "cty", y = "hwy", color = "blue")
@@ -72,7 +73,7 @@ easy_lineplot <- function(dataset, x, y, color, ...){
 #' Given two numeric variables from a data frame, the `easy_scatterplot()` function provides a simpler
 #' way to create scatterplots without manually writing full ggplot2 code.
 #' Users can customize the setting of the scatterplot by adding additional arguments.
-#' @param darataset The data frame providing the data for the plot.
+#' @param dataset The data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis (the independent variable).
 #' @param y The variable name to be used for the y-axis (the dependent variable).
 #' @param color A categorical variable to color the points.
@@ -112,7 +113,7 @@ easy_scatterplot <- function(dataset, x, y, color = NULL, ...) {
 #' Given one categorical variable from a data frame, the `easy_barplot()` function provides a simpler
 #' way to create barplots without manually writing full ggplot2 code.
 #' Users can customize the setting of the barplot by adding additional arguments.
-#' @param darataset The data frame providing the data for the plot.
+#' @param dataset The data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis.
 #' @param fill A categorical variable to fill the bars.
 #' @param ... Additional arguments passed to `geom_bar()`, such as `size`, `alpha`, etc.
@@ -148,7 +149,7 @@ easy_barplot <- function(dataset, x, fill = NULL, ...) {
 #' Given one numeric variable from a data frame, the `easy_histogram()` function provides a simpler
 #' way to create histograms without manually writing full ggplot2 code.
 #' Users can customize the setting of the histogram by adding additional arguments.
-#' @param darataset The data frame providing the data for the plot.
+#' @param dataset The data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis.
 #' @param fill A categorical variable to fill the histogram.
 #' @param ... Additional arguments passed to `geom_histogram()`, such as `size`, `alpha`, etc.
@@ -184,26 +185,29 @@ easy_histogram <- function(dataset, x, fill = NULL, ...) {
 #' @param dataset The name of the data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis (the independent variable).
 #' @param y The variable name to be used for the y-axis (the dependent variable).
-#' @returns A character string.
+#' @return A character string.
 #' @examples
 #' plot_helper(mpg, x = "cty", y = "hwy")
 #' @export
-plot_helper <- function(dataset, x, y){
+plot_helper <- function(dataset, x, y) {
   if (!x %in% names(dataset)) {
     stop("The variable x is not in the dataset.")
   }
   if (!y %in% names(dataset)) {
     stop("The variable y is not in the dataset.")
   }
-  x <- dataset[[x]]
-  y <- dataset[[y]]
 
-  type_x <- x[1]
-  type_y <- y[1]
+  type_x <- dataset[[x]]
+  type_y <- dataset[[y]]
 
-  if(is.numeric(type_x) == TRUE & is.numeric(type_y) == TRUE){
-    return("Since both the independent and dependent variables are continuous, the best plots to create would either be a scatterplot or a line plot. See help pages for easy_scatterplot() and easy_lineplot() for more information.")}
-
-  if(is.logical(type_x) == TRUE | is.character(type_x) == TRUE & is.numeric(type_y) == TRUE){
-    return("Since the independent variable is discrete and the dependent variable is continuous, the best plots to create would either be a boxplot or a bar graph. See help pages for easy_boxplot() and easy_bargraph() for more information.")}
+  if (is.numeric(type_x) && is.numeric(type_y)) {
+    return("Since both the independent and dependent variables are continuous, the best plots to create would either be a scatterplot or a line plot. See help pages for easy_scatterplot() and easy_lineplot() for more information.")
   }
+
+  if ((is.logical(type_x) || is.character(type_x)) && is.numeric(type_y)) {
+    return("Since the independent variable is discrete and the dependent variable is continuous, the best plots to create would either be a boxplot or a bar graph. See help pages for easy_boxplot() and easy_barplot() for more information.")
+  }
+
+  return("No suitable plot suggestion found for the given variable types.")
+}
+

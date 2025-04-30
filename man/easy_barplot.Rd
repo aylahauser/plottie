@@ -7,13 +7,13 @@
 easy_barplot(dataset, x, fill = NULL, ...)
 }
 \arguments{
+\item{dataset}{The data frame providing the data for the plot.}
+
 \item{x}{The variable name to be used for the x-axis.}
 
 \item{fill}{A categorical variable to fill the bars.}
 
 \item{...}{Additional arguments passed to \code{geom_bar()}, such as \code{size}, \code{alpha}, etc.}
-
-\item{darataset}{The data frame providing the data for the plot.}
 }
 \value{
 A ggplot2 barplot object.
