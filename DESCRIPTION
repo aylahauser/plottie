@@ -14,3 +14,7 @@ BugReports: https://github.com/aylahauser/plottie/issues
 Imports: 
     ggplot2,
     jsonlite
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

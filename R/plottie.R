@@ -6,9 +6,9 @@
 #' @param dataset The name of the data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis (the independent variable).
 #' @param y The variable name to be used for the y-axis (the dependent variable).
-#' @param color The color provided that aligns with R's built in colors that will be the color of the plot.
+#' @param color A categorical variable to be used to color the plot.
 #' @param ... Additional ggplot2 arguments passed to `geom_point()`, such as `size`, `alpha`, etc.
-#' @importFrom ggplot2 ggplot geom_boxplot theme_minimal aes
+#' @importFrom ggplot2 ggplot geom_boxplot theme_minimal aes theme element_text
 #' @return A ggplot2 boxplot displayed in Rstudio plot window.
 #' @examples
 #' easy_boxplot(mpg, x = "model", y = "hwy", color = "blue")
@@ -21,16 +21,25 @@ easy_boxplot <- function(dataset, x, y, color, ...){
     stop("The variable y is not in the dataset.")
   }
 
+  if (!color %in% names(dataset)) {
+    stop("The color variable is not in the dataset.")
+  }
+
   if (!(is.character(dataset[[x]]) || is.factor(dataset[[x]]) || is.logical(dataset[[x]])) ||
       !is.numeric(dataset[[y]])) {
     stop("x must be a character, factor, or logical, and y must be numeric for a boxplot.")
   }
 
+
+
   boxplot <- ggplot2::ggplot(data = dataset,
                     mapping = ggplot2::aes(x = .data[[x]],
-                                  y = .data[[y]])) +
-    ggplot2::geom_boxplot(color = color) +
-    ggplot2::theme_minimal()
+                                  y = .data[[y]],
+                                  color = color)) +
+    ggplot2::geom_boxplot() +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
   return(boxplot)
 }
 
@@ -41,10 +50,10 @@ easy_boxplot <- function(dataset, x, y, color, ...){
 #' @param dataset The name of the data frame providing the data for the plot.
 #' @param x The variable name to be used for the x-axis (the independent variable).
 #' @param y The variable name to be used for the y-axis (the dependent variable).
-#' @param color The color provided that aligns with R's built in colors that will be the color of the plot.
+#' @param color A categorical variable to be used to color the plot.
 #' @param ... Additional ggplot2 arguments passed to `geom_point()`, such as `size`, `alpha`, etc.
 #' @return A ggplot2 lineplot displayed in Rstudio plot window.
-#' @importFrom ggplot2 ggplot geom_line theme_minimal aes
+#' @importFrom ggplot2 ggplot geom_line theme_minimal aes theme element_text
 #' @examples
 #' easy_lineplot(mpg, x = "cty", y = "hwy", color = "blue")
 #' @export
@@ -56,15 +65,21 @@ easy_lineplot <- function(dataset, x, y, color, ...){
   if (!y %in% names(dataset)) {
     stop("The variable y is not in the dataset.")
   }
+  if (!color %in% names(dataset)) {
+    stop("The color variable is not in the dataset.")
+  }
+
   if (!is.numeric(dataset[[x]]) & !is.numeric(dataset[[y]])) {
     stop("Both x and y must be numeric for a scatterplot.")
   }
 
   lineplot <- ggplot2::ggplot(data = dataset,
                              mapping = ggplot2::aes(x = .data[[x]],
-                                                    y = .data[[y]])) +
-    ggplot2::geom_line(color = color) +
-    ggplot2::theme_minimal()
+                                                    y = .data[[y]],
+                                                    color = color)) +
+    ggplot2::geom_line() +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
   return(lineplot)
 }
 
@@ -78,7 +93,7 @@ easy_lineplot <- function(dataset, x, y, color, ...){
 #' @param y The variable name to be used for the y-axis (the dependent variable).
 #' @param color A categorical variable to color the points.
 #' @param ... Additional ggplot2 arguments passed to `geom_point()`, such as `size`, `alpha`, etc.
-#' @importFrom ggplot2 aes_string geom_point theme_minimal
+#' @importFrom ggplot2 aes_string geom_point theme_minimal theme element_text
 #' @return A ggplot2 scatterplot object.
 #' @examples
 #' easy_scatterplot(mtcars, x = "wt", y = "mpg", color = "cyl", size = 3, alpha = 0.5)
@@ -102,7 +117,8 @@ easy_scatterplot <- function(dataset, x, y, color = NULL, ...) {
     ggplot2::aes_string(x = x, y = y, color = color)
   ) +
     ggplot2::geom_point(...) +
-    ggplot2::theme_minimal()
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
   return(scatterplot)
 
@@ -157,7 +173,7 @@ easy_barplot <- function(dataset, x, y, fill = NULL, ...) {
 #' @param x The variable name to be used for the x-axis.
 #' @param fill A categorical variable to fill the histogram.
 #' @param ... Additional arguments passed to `geom_histogram()`, such as `size`, `alpha`, etc.
-#' @importFrom ggplot2 aes_string geom_histogram theme_minimal
+#' @importFrom ggplot2 aes_string geom_histogram theme_minimal theme element_text
 #' @return A ggplot2 histogram object.
 #' @examples
 #' easy_histogram(mtcars, x = "mpg", fill = "cyl")
@@ -178,7 +194,8 @@ easy_histogram <- function(dataset, x, fill = NULL, ...) {
     ggplot2::aes_string(x = x, fill = fill)
   ) +
     ggplot2::geom_histogram(...) +
-    ggplot2::theme_minimal()
+    ggplot2::theme_minimal() +
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
   return(histogram)
 
 }

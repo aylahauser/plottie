@@ -13,7 +13,7 @@ easy_lineplot(dataset, x, y, color, ...)
 
 \item{y}{The variable name to be used for the y-axis (the dependent variable).}
 
-\item{color}{The color provided that aligns with R's built in colors that will be the color of the plot.}
+\item{color}{A categorical variable to be used to color the plot.}
 
 \item{...}{Additional ggplot2 arguments passed to \code{geom_point()}, such as \code{size}, \code{alpha}, etc.}
 }
