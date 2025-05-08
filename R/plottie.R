@@ -30,12 +30,10 @@ easy_boxplot <- function(dataset, x, y, color, ...){
     stop("x must be a character, factor, or logical, and y must be numeric for a boxplot.")
   }
 
-
-
   boxplot <- ggplot2::ggplot(data = dataset,
                     mapping = ggplot2::aes(x = .data[[x]],
                                   y = .data[[y]],
-                                  color = color)) +
+                                  color = .data[[color]])) +
     ggplot2::geom_boxplot() +
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
@@ -76,7 +74,7 @@ easy_lineplot <- function(dataset, x, y, color, ...){
   lineplot <- ggplot2::ggplot(data = dataset,
                              mapping = ggplot2::aes(x = .data[[x]],
                                                     y = .data[[y]],
-                                                    color = color)) +
+                                                    color = .data[[color]])) +
     ggplot2::geom_line() +
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
