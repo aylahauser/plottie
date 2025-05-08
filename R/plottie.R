@@ -211,6 +211,7 @@ easy_histogram <- function(dataset, x, fill = NULL, ...) {
 #' @param y The variable name to be used for the y-axis (the dependent variable).
 #' @return A character string.
 #' @examples
+#' library(ggplot2)
 #' plot_helper(mpg, x = "cty", y = "hwy")
 #' @export
 plot_helper <- function(dataset, x, y) {

@@ -20,5 +20,6 @@ A character string.
 Uses inserted dataset, x-value, and y-value to return a suggestion on what type of plot the user should make with the inserted variable types.
 }
 \examples{
+library(ggplot2)
 plot_helper(mpg, x = "cty", y = "hwy")
 }
