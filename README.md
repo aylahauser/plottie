@@ -4,6 +4,10 @@
 # plottie
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/aylahauser/plottie/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aylahauser/plottie/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/aylahauser/plottie/graph/badge.svg)](https://app.codecov.io/gh/aylahauser/plottie)
 <!-- badges: end -->
 
 The `plottie` package provides a simple set of functions for quickly

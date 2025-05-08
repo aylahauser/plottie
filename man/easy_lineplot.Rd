@@ -4,7 +4,7 @@
 \alias{easy_lineplot}
 \title{Quickly Create a Lineplot}
 \usage{
-easy_lineplot(dataset, x, y, color, ...)
+easy_lineplot(dataset, x, y, color = NULL, ...)
 }
 \arguments{
 \item{dataset}{The name of the data frame providing the data for the plot.}

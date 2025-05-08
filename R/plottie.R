@@ -13,7 +13,7 @@
 #' @examples
 #' easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 #' @export
-easy_boxplot <- function(dataset, x, y, color, ...){
+easy_boxplot <- function(dataset, x, y, color = NULL, ...){
   if (!x %in% names(dataset)) {
     stop("The variable x is not in the dataset.")
   }
@@ -21,7 +21,7 @@ easy_boxplot <- function(dataset, x, y, color, ...){
     stop("The variable y is not in the dataset.")
   }
 
-  if (!color %in% names(dataset)) {
+  if (!is.null(color) && !color %in% names(dataset)) {
     stop("The color variable is not in the dataset.")
   }
 
@@ -33,7 +33,7 @@ easy_boxplot <- function(dataset, x, y, color, ...){
   boxplot <- ggplot2::ggplot(data = dataset,
                     mapping = ggplot2::aes(x = .data[[x]],
                                   y = .data[[y]],
-                                  color = .data[[color]])) +
+                                  color = if (!is.null(color)) .data[[color]])) +
     ggplot2::geom_boxplot() +
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
@@ -55,7 +55,7 @@ easy_boxplot <- function(dataset, x, y, color, ...){
 #' @examples
 #' easy_lineplot(mtcars, x = "hp", y = "mpg", color = "gear")
 #' @export
-easy_lineplot <- function(dataset, x, y, color, ...){
+easy_lineplot <- function(dataset, x, y, color = NULL, ...){
 
   if (!x %in% names(dataset)) {
     stop("The variable x is not in the dataset.")
@@ -63,7 +63,7 @@ easy_lineplot <- function(dataset, x, y, color, ...){
   if (!y %in% names(dataset)) {
     stop("The variable y is not in the dataset.")
   }
-  if (!color %in% names(dataset)) {
+  if (!is.null(color) && !color %in% names(dataset)) {
     stop("The color variable is not in the dataset.")
   }
 
@@ -74,7 +74,7 @@ easy_lineplot <- function(dataset, x, y, color, ...){
   lineplot <- ggplot2::ggplot(data = dataset,
                              mapping = ggplot2::aes(x = .data[[x]],
                                                     y = .data[[y]],
-                                                    color = .data[[color]])) +
+                                                    color = if (!is.null(color)) .data[[color]])) +
     ggplot2::geom_line() +
     ggplot2::theme_minimal() +
     ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
@@ -103,23 +103,22 @@ easy_scatterplot <- function(dataset, x, y, color = NULL, ...) {
   if (!y %in% names(dataset)) {
     stop("The variable y is not in the dataset.")
   }
-  if (!is.null(color) && !(color %in% names(dataset))) {
+  if (!is.null(color) && !color %in% names(dataset)) {
     stop("The color variable is not in the dataset.")
   }
-  if (!is.numeric(dataset[[x]]) || !is.numeric(dataset[[y]])) {
+  if (!is.numeric(dataset[[x]]) & !is.numeric(dataset[[y]])) {
     stop("Both x and y must be numeric for a scatterplot.")
   }
 
-  scatterplot <- ggplot2::ggplot(
-    dataset,
-    ggplot2::aes_string(x = x, y = y, color = color)
-  ) +
+  scatterplot <- ggplot2::ggplot(data = dataset,
+                                 mapping = ggplot2::aes(x = .data[[x]],
+                                                        y = .data[[y]],
+                                                        color = if (!is.null(color)) .data[[color]])) +
     ggplot2::geom_point(...) +
     ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
   return(scatterplot)
-
 }
 
 #' @title Quickly Create a Barplot
@@ -152,9 +151,13 @@ easy_barplot <- function(dataset, x, y, fill = NULL, ...) {
     dataset[[x]] <- as.factor(dataset[[x]])
   }
 
-    barplot <- ggplot2::ggplot(
+  barplot <- ggplot2::ggplot(
     data = dataset,
-    ggplot2::aes_string(x = x, y = y, fill = fill)
+    mapping = ggplot2::aes(
+      x = .data[[x]],
+      y = .data[[y]],
+      fill = if (!is.null(fill)) .data[[fill]]
+    )
   ) +
     ggplot2::geom_bar(...) +
     ggplot2::theme_minimal()
@@ -189,7 +192,8 @@ easy_histogram <- function(dataset, x, fill = NULL, ...) {
 
   histogram <- ggplot2::ggplot(
     data = dataset,
-    ggplot2::aes_string(x = x, fill = fill)
+    mapping = ggplot2::aes(x = .data[[x]],
+                           fill = if (!is.null(fill)) .data[[fill]])
   ) +
     ggplot2::geom_histogram(...) +
     ggplot2::theme_minimal() +
@@ -223,7 +227,7 @@ plot_helper <- function(dataset, x, y) {
     return("Since both the independent and dependent variables are continuous, the best plots to create would either be a scatterplot or a line plot. See help pages for easy_scatterplot() and easy_lineplot() for more information.")
   }
 
-  if ((is.logical(type_x) || is.character(type_x)) && is.numeric(type_y)) {
+  if ((is.factor(type_x) || is.character(type_x) || is.logical(type_x)) && is.numeric(type_y)) {
     return("Since the independent variable is discrete and the dependent variable is continuous, the best plots to create would either be a boxplot or a bar graph. See help pages for easy_boxplot() and easy_barplot() for more information.")
   }
 

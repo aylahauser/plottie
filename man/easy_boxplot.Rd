@@ -4,7 +4,7 @@
 \alias{easy_boxplot}
 \title{Quickly Create a Boxplot}
 \usage{
-easy_boxplot(dataset, x, y, color, ...)
+easy_boxplot(dataset, x, y, color = NULL, ...)
 }
 \arguments{
 \item{dataset}{The name of the data frame providing the data for the plot.}
