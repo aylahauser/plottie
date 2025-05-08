@@ -2,9 +2,9 @@ Package: plottie
 Title: A simpler way of plotting that works as a helper for easy visualizations.
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Melody", "Mei", email = "ymei@smith.edu", role = c("aut", "cre")),
-    person("Ayla", "Hauser", email = "adhauser@smith.edu", role = "aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Melody", "Mei", ,email = "ymei@smith.edu", role = c("aut", "cre")),
+    person("Ayla","Hauser", ,email = "adhauser@smith.edu", role = "aut", "cre"))
+Description: Makes plotting simpler and more accessible by taking allowing users to assess what plots would be best for the variables they want to use and to make these graphs without tedious coding through ggplot2.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
