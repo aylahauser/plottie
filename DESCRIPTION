@@ -1,5 +1,5 @@
 Package: plottie
-Title: A simpler way of plotting that works as a helper for easy visualizations.
+Title: A simpler way of plotting that works as a helper for easy visualizations
 Version: 0.0.0.9000
 Authors@R: c(
     person("Melody", "Mei", email = "ymei@smith.edu", role = c("aut", "cre")),

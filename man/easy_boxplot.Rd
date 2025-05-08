@@ -25,5 +25,6 @@ Given one discrete variable and one numeric variable, the \code{easy_boxplot()} 
 Users can customize the setting of the boxplot by adding additional arguments.
 }
 \examples{
+mtcars$cyl <- as.factor(mtcars$cyl)
 easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 }

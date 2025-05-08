@@ -11,6 +11,7 @@
 #' @importFrom ggplot2 ggplot geom_boxplot theme_minimal aes theme element_text
 #' @return A ggplot2 boxplot displayed in Rstudio plot window.
 #' @examples
+#' mtcars$cyl <- as.factor(mtcars$cyl)
 #' easy_boxplot(mtcars, x = "cyl", y = "mpg", color = "gear")
 #' @export
 easy_boxplot <- function(dataset, x, y, color = NULL, ...){
